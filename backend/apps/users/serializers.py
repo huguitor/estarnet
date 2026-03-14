@@ -31,9 +31,10 @@ class EmailTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
     def validate(self, attrs):
-        email = attrs.get('email') or attrs.get('username')
+        email = (attrs.get('email') or attrs.get('username') or '').strip().lower()
         password = attrs.get('password')
-        user = authenticate(request=self.context.get('request'), email=email, password=password)
+        # El backend de autenticación espera `username`; nuestro USERNAME_FIELD es email.
+        user = authenticate(request=self.context.get('request'), username=email, password=password)
         if not user:
             raise serializers.ValidationError('Credenciales inválidas')
         data = super().validate({'email': email, 'password': password})

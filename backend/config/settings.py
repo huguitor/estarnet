@@ -137,6 +137,8 @@ X_FRAME_OPTIONS = 'DENY'
 SECURE_HSTS_SECONDS = int(os.getenv('DJANGO_HSTS_SECONDS', '0'))
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env_bool('DJANGO_HSTS_INCLUDE_SUBDOMAINS', 'False')
 SECURE_HSTS_PRELOAD = env_bool('DJANGO_HSTS_PRELOAD', 'False')
+# Honrar TLS terminada en Nginx con X-Forwarded-Proto
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 LOGGING = {
     'version': 1,
