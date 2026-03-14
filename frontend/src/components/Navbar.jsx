@@ -1,5 +1,6 @@
 import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
+import logo from '../assets/logo_Nico.png'
 
 const linkClass = ({ isActive }) =>
   `px-3 py-2 text-sm font-medium ${isActive ? 'text-primary' : 'text-slate-200 hover:text-white'}`
@@ -11,8 +12,7 @@ export default function Navbar() {
     <header className="bg-dark text-white shadow-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
         <Link to="/" className="flex items-center gap-2 text-lg font-semibold">
-          <span className="rounded bg-primary px-2 py-1 text-dark font-bold">EN</span>
-          EstarNet
+          <img src={logo} alt="Panozo Sistemas" className="h-10 w-auto object-contain" />
         </Link>
         <nav className="flex items-center gap-2">
           <NavLink to="/" className={linkClass} end>

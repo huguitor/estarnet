@@ -92,8 +92,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT_BASE = Path(os.getenv('MEDIA_ROOT', '/media'))
+MEDIA_ROOT = MEDIA_ROOT_BASE / 'private'
+MEDIA_URL = '/media/private/'
+# Contenido público servido directamente por Nginx
+PUBLIC_MEDIA_ROOT = Path(os.getenv('PUBLIC_MEDIA_ROOT', '/media/public'))
+PUBLIC_MEDIA_URL = '/media/public/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'

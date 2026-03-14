@@ -25,74 +25,88 @@ export default function Contact() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10">
+    <div className="mx-auto max-w-5xl px-4 py-10">
       <h2 className="text-3xl font-bold text-slate-900">Contacto</h2>
-      <p className="text-slate-600">Completá el formulario y nuestro equipo te responderá.</p>
+      <p className="text-slate-600">Completá el formulario o contáctanos por los datos directos.</p>
 
-      {status && (
-        <div
-          className={`mt-4 rounded p-3 text-sm ${
-            status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
-          }`}
-        >
-          {status.message}
+      <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <h3 className="text-xl font-semibold text-slate-900">Panozo Sistemas</h3>
+          <ul className="mt-3 space-y-2 text-sm text-slate-700">
+            <li><strong>Dirección:</strong> Rosa Alaniz 470 (8300) Neuquén Capital - Argentina</li>
+            <li><strong>Teléfono:</strong> +54 2995214846</li>
+            <li><strong>Email:</strong> panozoelectronica@gmail.com</li>
+          </ul>
+          <p className="mt-4 text-xs text-slate-500">Atendemos de lunes a viernes, 9 a 18 h (ART).</p>
         </div>
-      )}
 
-      <form onSubmit={handleSubmit} className="mt-6 grid gap-4 sm:grid-cols-2">
-        <div className="sm:col-span-1">
-          <label className="text-sm text-slate-700">Nombre</label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            required
-            className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
-          />
+        <div className="md:col-span-1">
+          {status && (
+            <div
+              className={`mb-4 rounded p-3 text-sm ${
+                status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'
+              }`}
+            >
+              {status.message}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="grid gap-4 sm:grid-cols-2">
+            <div className="sm:col-span-1">
+              <label className="text-sm text-slate-700">Nombre</label>
+              <input
+                type="text"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div className="sm:col-span-1">
+              <label className="text-sm text-slate-700">Email</label>
+              <input
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div className="sm:col-span-1">
+              <label className="text-sm text-slate-700">Teléfono</label>
+              <input
+                type="tel"
+                name="phone"
+                value={form.phone}
+                onChange={handleChange}
+                className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="text-sm text-slate-700">Mensaje</label>
+              <textarea
+                name="message"
+                value={form.message}
+                onChange={handleChange}
+                required
+                minLength={10}
+                className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
+                rows="5"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <button
+                type="submit"
+                className="w-full rounded bg-primary px-4 py-3 font-semibold text-dark shadow hover:brightness-110"
+              >
+                Enviar mensaje
+              </button>
+            </div>
+          </form>
         </div>
-        <div className="sm:col-span-1">
-          <label className="text-sm text-slate-700">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-            className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
-          />
-        </div>
-        <div className="sm:col-span-1">
-          <label className="text-sm text-slate-700">Teléfono</label>
-          <input
-            type="tel"
-            name="phone"
-            value={form.phone}
-            onChange={handleChange}
-            className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label className="text-sm text-slate-700">Mensaje</label>
-          <textarea
-            name="message"
-            value={form.message}
-            onChange={handleChange}
-            required
-            minLength={10}
-            className="mt-1 w-full rounded border border-slate-300 bg-white p-3 text-slate-800 focus:border-primary focus:outline-none"
-            rows="5"
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <button
-            type="submit"
-            className="w-full rounded bg-primary px-4 py-3 font-semibold text-dark shadow hover:brightness-110"
-          >
-            Enviar mensaje
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
   )
 }

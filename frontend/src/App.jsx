@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './pages/Home'
 import Services from './pages/Services'
 import Contact from './pages/Contact'
@@ -12,9 +13,9 @@ import { AuthProvider } from './hooks/useAuth'
 export default function App() {
   return (
     <AuthProvider>
-      <div className="min-h-screen bg-slate-50 text-slate-900">
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
         <Navbar />
-        <main>
+        <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/services" element={<Services />} />
@@ -26,6 +27,7 @@ export default function App() {
             </Route>
           </Routes>
         </main>
+        <Footer />
       </div>
     </AuthProvider>
   )

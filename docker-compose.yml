@@ -25,6 +25,8 @@ services:
         condition: service_healthy
     expose:
       - '8000'
+    volumes:
+      - media_storage:/media
     restart: unless-stopped
 
   frontend:
@@ -38,7 +40,9 @@ services:
       - '443:443'
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - media_storage:/media:ro
     restart: unless-stopped
 
 volumes:
   db_data:
+  media_storage:
