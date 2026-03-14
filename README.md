@@ -1,4 +1,4 @@
-# Panozo Sistemas (EstarNet) – Django + React + Docker
+# Panozo Sistemas (Estarnet) – Django + React + Docker
 
 Stack productivo con backend Django/DRF + JWT y frontend React/Vite/Tailwind servido por Nginx, empaquetado en Docker.
 
