@@ -1,48 +1,61 @@
 services:
   db:
     image: postgres:15-alpine
+    container_name: panozosistemas-db
     restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-estarnet}
       POSTGRES_USER: ${POSTGRES_USER:-estarnet}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-estarnet}
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - estarnet_db_data:/var/lib/postgresql/data
     healthcheck:
       test: ['CMD-SHELL', 'pg_isready -U $$POSTGRES_USER']
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - estarnet_network
 
   backend:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    container_name: panozosistemas-backend
     env_file:
       - backend/.env
     depends_on:
       db:
         condition: service_healthy
     expose:
-      - '8000'
+      - "8000"
     volumes:
-      - media_storage:/media
+      - estarnet_media_storage:/media
     restart: unless-stopped
+    networks:
+      - estarnet_network
 
   frontend:
     build:
       context: .
       dockerfile: Dockerfile.frontend
+    container_name: panozosistemas-frontend
     depends_on:
       - backend
-    ports:
-      - '80:80'
-      - '443:443'
+    expose:
+      - "80"
     volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - media_storage:/media:ro
+      - estarnet_media_storage:/media:ro
     restart: unless-stopped
+    networks:
+      - estarnet_network
 
 volumes:
-  db_data:
-  media_storage:
+  estarnet_db_data:
+    external: true
+  estarnet_media_storage:
+    external: true
+
+networks:
+  estarnet_network:
+    external: true

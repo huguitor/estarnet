@@ -20,3 +20,6 @@ yarn-debug.log*
 .vscode
 .idea
 .DS_Store
+
+# Nginx certificates
+nginx/certs-nag/
