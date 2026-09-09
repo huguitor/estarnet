@@ -18,6 +18,14 @@ CSRF_TRUSTED_ORIGINS = [origin for origin in os.getenv('DJANGO_CSRF_TRUSTED_ORIG
 CORS_ALLOWED_ORIGINS = [origin for origin in os.getenv('DJANGO_CORS_ALLOWED_ORIGINS', 'http://localhost:8000,http://localhost:5173').split(',') if origin]
 CORS_ALLOW_CREDENTIALS = True
 
+NOTIFICATIONS_ENABLED = env_bool('NOTIFICATIONS_ENABLED', 'False')
+NOTIFICATIONS_API_URL = os.getenv('NOTIFICATIONS_API_URL', '').rstrip('/')
+NOTIFICATIONS_API_KEY = os.getenv('NOTIFICATIONS_API_KEY', '')
+NOTIFICATIONS_TO_EMAIL = os.getenv('NOTIFICATIONS_TO_EMAIL', '')
+NOTIFICATIONS_TO_NAME = os.getenv('NOTIFICATIONS_TO_NAME', 'Panozo Sistemas')
+NOTIFICATIONS_CONNECT_TIMEOUT = float(os.getenv('NOTIFICATIONS_CONNECT_TIMEOUT', '2'))
+NOTIFICATIONS_READ_TIMEOUT = float(os.getenv('NOTIFICATIONS_READ_TIMEOUT', '5'))
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
