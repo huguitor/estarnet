@@ -34,6 +34,7 @@ services:
     restart: unless-stopped
     networks:
       - estarnet_network
+      - panozo_notifications_clients
 
   frontend:
     build:
@@ -58,4 +59,6 @@ volumes:
 
 networks:
   estarnet_network:
+    external: true
+  panozo_notifications_clients:
     external: true
