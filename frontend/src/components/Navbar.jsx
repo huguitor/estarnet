@@ -27,7 +27,7 @@ export default function Navbar() {
           <NavLink to="/" className={navLink} end>
             Inicio
           </NavLink>
-          <NavLink to="/services" className={navLink}>
+          <NavLink to="/soluciones" className={navLink}>
             Soluciones
           </NavLink>
           <NavLink to="/contact" className={navLink}>
@@ -84,7 +84,7 @@ export default function Navbar() {
             <NavLink to="/" className={navLink} end onClick={close}>
               Inicio
             </NavLink>
-            <NavLink to="/services" className={navLink} onClick={close}>
+            <NavLink to="/soluciones" className={navLink} onClick={close}>
               Soluciones
             </NavLink>
             <NavLink to="/contact" className={navLink} onClick={close}>

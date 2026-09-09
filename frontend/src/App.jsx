@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
-import Services from './pages/Services'
+import Soluciones from './pages/Soluciones'
 import Contact from './pages/Contact'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -32,7 +32,8 @@ export default function App() {
         <main className="flex-1">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/services" element={<Services />} />
+            <Route path="/soluciones" element={<Soluciones />} />
+            <Route path="/services" element={<Navigate to="/soluciones" replace />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

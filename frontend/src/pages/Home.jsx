@@ -141,7 +141,7 @@ export default function Home() {
                 <IconArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                to="/services"
+                to="/soluciones"
                 className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-800 transition hover:border-brand hover:text-brand"
               >
                 Conocer soluciones
