@@ -23,3 +23,6 @@ yarn-debug.log*
 
 # Nginx certificates
 nginx/certs-nag/
+
+# Permitir plantillas de variables de entorno
+!**/.env.example
