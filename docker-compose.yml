@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-estarnet}
       POSTGRES_USER: ${POSTGRES_USER:-estarnet}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-estarnet}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Debe configurar POSTGRES_PASSWORD}
     volumes:
       - estarnet_db_data:/var/lib/postgresql/data
     healthcheck:
@@ -32,9 +32,10 @@ services:
     volumes:
       - estarnet_media_storage:/media
     restart: unless-stopped
+    environment:
+      NOTIFICATIONS_ENABLED: "false"
     networks:
       - estarnet_network
-      - panozo_notifications_clients
 
   frontend:
     build:
@@ -43,8 +44,8 @@ services:
     container_name: panozosistemas-frontend
     depends_on:
       - backend
-    expose:
-      - "80"
+    ports:
+      - "127.0.0.1:18081:80"
     volumes:
       - estarnet_media_storage:/media:ro
     restart: unless-stopped
@@ -59,6 +60,4 @@ volumes:
 
 networks:
   estarnet_network:
-    external: true
-  panozo_notifications_clients:
     external: true

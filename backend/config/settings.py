@@ -2,6 +2,7 @@ import os
 from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
+from .signing_keys import load_signing_keys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
@@ -10,7 +11,7 @@ load_dotenv(BASE_DIR / '.env')
 def env_bool(name: str, default: str = 'False') -> bool:
     return os.getenv(name, default).lower() in ['true', '1', 'yes']
 
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'change-me')
+SECRET_KEY, JWT_SIGNING_KEY, SECRET_KEY_FALLBACKS = load_signing_keys(os.environ)
 DEBUG = env_bool('DJANGO_DEBUG', 'False')
 
 ALLOWED_HOSTS = [host for host in os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') if host]
@@ -79,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.getenv('POSTGRES_DB', 'estarnet'),
         'USER': os.getenv('POSTGRES_USER', 'estarnet'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'estarnet'),
+        'PASSWORD': os.environ['POSTGRES_PASSWORD'],
         'HOST': os.getenv('POSTGRES_HOST', 'db'),
         'PORT': os.getenv('POSTGRES_PORT', '5432'),
     }
@@ -99,7 +100,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+}
 MEDIA_ROOT_BASE = Path(os.getenv('MEDIA_ROOT', '/media'))
 MEDIA_ROOT = MEDIA_ROOT_BASE / 'private'
 MEDIA_URL = '/media/private/'
@@ -132,7 +136,7 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=int(os.getenv('JWT_ACCESS_MINUTES', '15'))),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=int(os.getenv('JWT_REFRESH_DAYS', '7'))),
     'AUTH_HEADER_TYPES': ('Bearer',),
-    'SIGNING_KEY': os.getenv('DJANGO_SECRET_KEY', 'change-me'),
+    'SIGNING_KEY': JWT_SIGNING_KEY,
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
 }
 

@@ -1,0 +1,4 @@
+# Referencia: usar central-panozosistemas-http.conf para la etapa HTTP-01
+# y central-panozosistemas-https.conf después de emitir el certificado.
+# Procedimiento: docs/migracion-vps.md, sección Publicación central y HTTPS.
+# Instalador autorizado: ops/instalar-nginx-panozosistemas.sh.
